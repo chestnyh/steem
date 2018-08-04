@@ -6,20 +6,24 @@ pipeline {
       steps {
         parallel ( "Build tests":
         {
-          def result = sh returnStatus: true, script: 'ciscripts/triggertests.sh'
-          if (result != 0) {
-            echo '[FAILURE] Failed to build'
-            currentBuild.result = 'FAILURE'
-            sh "exit ${result}"
+          script {
+            def result = sh returnStatus: true, script: 'ciscripts/triggertests.sh'
+            if (result != 0) {
+              echo '[FAILURE] Failed to build'
+              currentBuild.result = 'FAILURE'
+              sh "exit ${result}"
+            }
           }
           step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/cobertura/coverage.xml', failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false])
         },
         "Build docker image": {
-          def result = sh returnStatus: true, script: 'ciscripts/triggerbuild.sh'
-          if (result != 0) {
-            echo '[FAILURE] Failed to build'
-            currentBuild.result = 'FAILURE'
-            sh "exit ${result}"
+          script {
+            def result = sh returnStatus: true, script: 'ciscripts/triggerbuild.sh'
+            if (result != 0) {
+              echo '[FAILURE] Failed to build'
+              currentBuild.result = 'FAILURE'
+              sh "exit ${result}"
+            }
           }
         })
       }
