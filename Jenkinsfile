@@ -3,8 +3,8 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      failFast true
       steps {
-        failFast true
         parallel ( "Build tests":
         {
           sh 'ciscripts/triggertests.sh'
