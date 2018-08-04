@@ -2,8 +2,8 @@
 pipeline {
   agent any
   stages {
+  failFast true
     stage('Build') {
-      failFast true
       steps {
         parallel ( "Build tests":
         {
