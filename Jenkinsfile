@@ -1,8 +1,8 @@
 #!groovy
 pipeline {
   agent any
-  stages {
   failFast true
+  stages {
     stage('Build') {
       steps {
         parallel ( "Build tests":
