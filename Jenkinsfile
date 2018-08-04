@@ -11,6 +11,7 @@ pipeline {
             if (result != 0) {
               echo '[FAILURE] Failed to build'
               currentBuild.result = 'FAILURE'
+              error 'Aborting due to failure'
               sh "exit ${result}"
             }
           }
@@ -22,6 +23,7 @@ pipeline {
             if (result != 0) {
               echo '[FAILURE] Failed to build'
               currentBuild.result = 'FAILURE'
+              error 'Aborting due to failure'
               sh "exit ${result}"
             }
           }
